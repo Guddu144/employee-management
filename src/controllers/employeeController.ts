@@ -13,7 +13,7 @@ class EmployeeController{
           data: {
             email: userData.email,
             name: userData.name,
-            phone: userData.phone,
+            phone: JSON.stringify(userData.phone),
             role: 'EMPLOYEE',
             password: userData.password, 
           },
