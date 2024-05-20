@@ -1,5 +1,5 @@
 import {NextFunction, Request,Response} from 'express';
-import { verifyToken } from '../services/jwt';
+import { verifyToken } from '../utils/jwt';
 import { JwtPayload } from 'jsonwebtoken';
 
 const fetchToken = (req:Request): string|undefined => {

@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
-import { hashPassword } from '../../services/bcrypt';
+import { hashPassword } from '../../utils/bcrypt';
 import employeerController from '../../controllers/employeerController';
 
 export const addEmployeer = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.body)
     const {  address,email,name,phone,password } = req.body;
     const hashedPassword = await hashPassword(password)
     const { employeer, user } = await employeerController.createEmployeerAndUser(

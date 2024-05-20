@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import employeeRouter from "./routes/employee"
 import employeerRouter from "./routes/employeer"
 import userRouter from "./routes/user"
+import fileRouter from "./routes/excel-upload"
 import checkSession from "./middleware/check-session";
 import errorHandler from "./middleware/handle-error";
 import swaggerUi from 'swagger-ui-express';
@@ -21,11 +22,13 @@ app.get("/", (request: Request, response: Response) => {
 
 app.use('/api/employee',checkSession,employeeRouter)
 app.use('/api/employeer',checkSession,employeerRouter)
+app.use('/api',fileRouter)
 app.use('/api/user',userRouter)
-app.use(errorHandler)
 
 const swaggerDocument = YAML.load(path.join(__dirname, './swagger/swagger.yaml'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(errorHandler)
+
 
 app.listen(PORT, () => { 
   console.log("Server running at PORT: ", PORT); 

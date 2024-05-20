@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import employeeController from '../../controllers/employeeController';
-import { hashPassword } from '../../services/bcrypt';
+import { hashPassword } from '../../utils/bcrypt';
 
 export const addEmployee = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -49,7 +49,7 @@ export interface ExtractedErrorsType {
 }
 
 export class ValidationFailedError extends CustomError {
-  public static readonly msg = '422 Validation Failed';
+  // public static readonly msg = '422 Validation Failed';
   public static readonly status = HttpStatusCodes.UNPROCESSABLE_ENTITY;
 
   constructor(msg = '422 Validation Failed', public errors: ExtractedErrorsType) {

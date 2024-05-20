@@ -1,5 +1,5 @@
 import express, { ErrorRequestHandler } from 'express';
-import { CustomError, ExtractedErrorsType, ValidationFailedError } from '../services/errors';
+import { CustomError, ExtractedErrorsType, UnexpectedError, ValidationFailedError } from '../utils/errors';
 
 interface JsonResponse {
   failed: boolean;
@@ -8,12 +8,16 @@ interface JsonResponse {
 }
 
 const handleError: ErrorRequestHandler = async (
-  err,
+  err:Error,
   req: express.Request,
   res: express.Response,
   next: express.NextFunction,
 ) => {
   const payload: JsonResponse = { failed: true, message: err.message };
+
+  if (!(err instanceof CustomError) || err instanceof UnexpectedError) {
+    console.error(err);
+  }
 
   if (err instanceof ValidationFailedError) {
     payload.errors = err.errors;
@@ -29,3 +33,5 @@ const handleError: ErrorRequestHandler = async (
 };
 
 export default handleError;
+
+
