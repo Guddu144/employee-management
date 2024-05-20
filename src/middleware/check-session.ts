@@ -1,5 +1,6 @@
 import {NextFunction, Request,Response} from 'express';
 import { verifyToken } from '../services/jwt';
+import { JwtPayload } from 'jsonwebtoken';
 
 const fetchToken = (req:Request): string|undefined => {
   const authorizationHeader = req.headers?.authorization;
@@ -14,14 +15,23 @@ const fetchToken = (req:Request): string|undefined => {
 
 };
 
-export default async (req:Request, res:Response, next:NextFunction) => {
+interface AuthenticatedRequest extends Request {
+  user?: string | JwtPayload;
+}
+
+export default async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const token = fetchToken(req);
   if (token) {
-    const decoded = verifyToken(token);
-    if (!decoded) {
-      return res.status(403).json({ message:"Token doesnot match" });
+    try {
+      const decoded = verifyToken(token);
+      if (decoded) {
+        req.user= decoded;
+        return next();
+      }
+      return res.status(403).json({ message: "Invalid token" });
+    } catch (error) {
+      return res.status(403).json({ message: "Token verification failed" });
     }
-    next()
   }
-  return res.status(401).json({ message:"No token found" });
+  return res.status(401).json({ message: "No token found" });
 };

@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts",
+  "ext": "ts,yaml",
   "ignore": ["src/**/*.test.ts", "node_modules"],
   "exec": "ts-node -r tsconfig-paths/register src/app.ts"
 }

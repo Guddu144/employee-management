@@ -3,7 +3,6 @@ import employeeController from '../../controllers/employeeController';
 
 export const updateEmployee = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.body)
     const { title, yearly_salary, address,email,name,phone } = req.body;
     const id = parseInt(req.params.id);
     const { updatedEmployee, updatedUser } = await employeeController.updateEmployee(
@@ -11,6 +10,7 @@ export const updateEmployee = async (req: Request, res: Response): Promise<void>
       { title, yearly_salary, address },
       { email, name, phone }
     );
+    
     res.status(201).json({updatedEmployee, updatedUser});
   } catch (error) {
     console.error('Error adding employee:', error);
