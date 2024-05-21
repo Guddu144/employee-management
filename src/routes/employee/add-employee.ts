@@ -4,7 +4,6 @@ import { hashPassword } from '../../utils/bcrypt';
 
 export const addEmployee = async (req: Request, res: Response): Promise<void> => {
   try {
-    console.log(req.body)
     const { title, yearly_salary, address,email,name,phone,password } = req.body;
     const hashedPassword = await hashPassword(password)
     const { employee, user } = await employeeController.createEmployeeAndUser(

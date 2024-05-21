@@ -44,12 +44,20 @@ class EmployeeController{
     });
   }
 
-  async updateEmployee(id:number,employeeData: { title: string; yearly_salary: number; address: string }, userData: { email: string; name: string; phone: string}) {
+  async updateEmployee(id:number,userRole:string,employeeData: { title: string; yearly_salary: number; address: string }, userData: { email: string; name: string; phone: string}) {
     try {
+      let data: any = {
+        address: employeeData.address,
+      };
+
+      if (userRole !== 'EMPLOYEE') {
+        data.title = employeeData.title;
+        data.yearly_salary = employeeData.yearly_salary;
+      }
       return await this.prisma.$transaction(async (prisma) => {
         const updatedEmployee = await prisma.employee.update({
           where: { userId:id },
-          data: employeeData,
+          data: data
         });
 
         const updatedUser = await prisma.user.update({

@@ -15,8 +15,13 @@ const fetchToken = (req:Request): string|undefined => {
 
 };
 
-interface AuthenticatedRequest extends Request {
-  user?: string | JwtPayload;
+export interface AuthenticatedRequest extends Request {
+  user?: UserAuth|JwtPayload;
+}
+export interface UserAuth{
+  userId: number,
+  email: string,
+  role: string,
 }
 
 export default async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
