@@ -16,6 +16,25 @@ class UserController{
     });
   } 
 
+  async createAdmin(userData: { email: string; name: string; phone: string; password: string }) {
+    try {
+        const user = await this.prisma.user.create({
+          data: {
+            email: userData.email,
+            name: userData.name,
+            phone: JSON.stringify(userData.phone),
+            role: 'ADMIN',
+            password: userData.password, 
+          },
+        });
+
+        return { user };
+    } catch (error) {
+      console.error("Error creating Admin:", error);
+      throw new Error("Failed to create Admin");
+    }
+  }
+
   
   
 }
