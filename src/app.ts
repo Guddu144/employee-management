@@ -8,7 +8,8 @@ import checkSession from "./middleware/check-session";
 import errorHandler from "./middleware/handle-error";
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-import path from 'path'
+import path from 'path';
+import './routes/excel-upload/bulk-upload-worker'
 
 dotenv.config();
 const app = express();
