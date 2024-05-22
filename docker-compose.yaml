@@ -1,0 +1,24 @@
+version: '1'
+
+services:
+    app:
+      image: employee-management-be-image:latest
+      restart: on-failure
+      ports:
+        - 3000:3000
+      env_file:
+        - ./.env
+      depends_on:
+      - database
+      command: ["sh", "-c", "npx prisma db push && npm start"]
+    redis:
+      image: redis
+    database:
+        image: mysql
+        restart: always
+        ports:
+          - 3306:3306
+        environment:
+          MYSQL_ROOT_PASSWORD: 'password123'
+          MYSQL_DATABASE: employe_db  
+        

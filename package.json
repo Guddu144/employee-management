@@ -1,12 +1,13 @@
 {
   "name": "employee-management-be",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "start": "nodemon"
+    "build": "tsc --build tsconfig.json",
+    "start:dev": "nodemon",
+    "start": "node dist"
   },
   "keywords": [],
   "author": "",
