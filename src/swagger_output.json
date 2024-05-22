@@ -36,10 +36,10 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "any"
+                    "example": "admin@gmail.com"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "admin123"
                   }
                 }
               }
@@ -70,7 +70,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -80,25 +80,25 @@
                 "type": "object",
                 "properties": {
                   "title": {
-                    "example": "any"
+                    "example": "Software Engineer"
                   },
                   "yearly_salary": {
-                    "example": "any"
+                    "example": 60000
                   },
                   "address": {
-                    "example": "any"
+                    "example": "123 Main Street"
                   },
                   "email": {
-                    "example": "any"
+                    "example": "example@example.com"
                   },
                   "name": {
-                    "example": "any"
+                    "example": "John Doe"
                   },
                   "phone": {
-                    "example": "any"
+                    "example": "9832338382"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "secretpassword"
                   }
                 }
               }
@@ -139,7 +139,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -203,7 +203,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ]
       },
@@ -238,7 +238,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ]
       }
@@ -265,7 +265,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -275,19 +275,19 @@
                 "type": "object",
                 "properties": {
                   "address": {
-                    "example": "any"
+                    "example": "location"
                   },
                   "email": {
-                    "example": "any"
+                    "example": "employeer@example.com"
                   },
                   "name": {
-                    "example": "any"
+                    "example": "Ram Thapa"
                   },
                   "phone": {
-                    "example": "any"
+                    "example": "9876543210"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "employeerpwd"
                   }
                 }
               }
@@ -328,7 +328,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ],
         "requestBody": {
@@ -386,7 +386,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ]
       },
@@ -421,41 +421,59 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "bearerAuth": []
           }
         ]
       }
     },
     "/files/bulk-upload": {
       "post": {
-        "tags": [
-          "BulkUpload"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+          "tags": [
+              "BulkUpload"
+          ],
+          "description": "",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string",
+                      "format": "binary",
+                      "description": "The Excel file to upload"
+                    }
+                  }
+                }
+              }
+            }
           },
-          "400": {
-            "description": "Bad Request"
+          "responses": {
+              "200": {
+                  "description": "OK"
+              },
+              "400": {
+                  "description": "Bad Request"
+              },
+              "401": {
+                  "description": "Unauthorized"
+              },
+              "403": {
+                  "description": "Forbidden"
+              },
+              "500": {
+                  "description": "Internal Server Error"
+              }
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
+          "security": [
+              {
+                  "bearerAuth": []
+              }
+          ]
       }
-    }
+  }
+  
   },
   "components": {
     "securitySchemes": {

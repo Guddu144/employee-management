@@ -7,25 +7,27 @@ import checkSession from "../middleware/check-session";
 
 const router = Router();
 
-router.use('/user',UserRouter)
+router.use('/user',UserRouter
+  // #swagger.tags = ['User']
+)
 router.use('/employee',checkSession,EmployeeRouter
   // #swagger.tags = ['Employee']
-  /* #swagger.security = [{
-            "apiKeyAuth": []
+   /* #swagger.security = [{
+            "bearerAuth": []
     }] */
 )
 router.use('/employeer',checkSession,EmployeerRouter
   // #swagger.tags = ['Employeer']
 
-  /* #swagger.security = [{
-            "apiKeyAuth": []
+   /* #swagger.security = [{
+            "bearerAuth": []
     }] */
 )
 router.use('/files',checkSession,FileRouter
   // #swagger.tags = ['BulkUpload']
 
-  /* #swagger.security = [{
-            "apiKeyAuth": []
+   /* #swagger.security = [{
+            "bearerAuth": []
     }] */
 )
 
