@@ -1,51 +1,30 @@
-import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerAutogen from 'swagger-autogen';
 
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.0',
+const doc = {
     info: {
-      title: 'My API',
-      version: '1.0.0',
-      description: 'API documentation',
-      contact: {
-        name: "Guddu Dhananjaya",
-        email: "guddudhananjaya@email.com",
-      },
+        version: 'v1.0.0',
+        title: 'My Employee Management API',
+        description: 'Implementation of Swagger with TypeScript'
     },
     servers: [
-      {
-        url: `http://localhost:${process.env.PORT}`,
-        description: 'Local server',
-      },
+        {
+            url: `http://localhost:3000/api`,
+            description: 'Local Server'
+        },
     ],
     components: {
-      schemas: {
-        ValidationFailedResponse: {
-          type: 'object',
-          properties: {
-            message: {
-              type: 'string',
-            },
-            status: {
-              type: 'integer',
-            },
-            errors: {
-              type: 'object',
-              additionalProperties: {
-                type: 'array',
-                items: {
-                  type: 'string',
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-  apis: ['./src/routes/user/*.ts','./src/routes/employee/*.ts','./src/routes/employeer/*.ts'], // Path to the API docs
+        securitySchemes: {
+            bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+            }
+        }
+    }
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const outputFile = '../swagger_output.json';
+const endpointsFiles = ['./src/routes/index.ts','./src/routes/user/index.ts'];
 
-export default swaggerDocs;
+swaggerAutogen({openapi: '3.0.0'})(outputFile, endpointsFiles, doc);
+
+
