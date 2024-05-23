@@ -8,7 +8,7 @@ Prerequisites
 
 Setup
 . Clone the Repository
-	git clone https://github.com/your-username/employee-management.git
+	git clone https://github.com/Guddu144/employee-management.git
 	cd employee-management
 
 . Create a .env File
