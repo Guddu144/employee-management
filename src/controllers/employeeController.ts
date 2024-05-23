@@ -93,6 +93,20 @@ class EmployeeController{
 
 
   async deleteEmployee(id: number) {
+    try {
+      return await this.prisma.$transaction(async (prisma) => {
+         
+          await prisma.employee.delete({
+            where: { userId:id },
+          });
+          return await prisma.user.delete({
+            where: { id  }, 
+          });
+        });
+    } catch (error) {
+      console.error(`Error deleting employee with id ${id}:`, error);
+      throw new Error("Failed to delete employee");
+    }
   }
   
 }
