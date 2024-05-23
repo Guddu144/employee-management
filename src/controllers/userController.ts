@@ -35,6 +35,17 @@ class UserController{
     }
   }
 
+  async getUsers() {
+    return ( 
+      await this.prisma.user.findMany({
+      include: {
+        Employee: true, 
+        Employeer: true
+      }
+    })
+  )
+}
+
   
   
 }
