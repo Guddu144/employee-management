@@ -31,6 +31,9 @@ This is an Employee Management system. Follow the instructions below to set up a
 
 .	Access the Application
 	Open your browser and go to http://localhost:PORT (replace PORT with the actual port number).
+ 	Swagger API documentation can be accessed at:
+
+   	http://localhost:PORT/api-docs
 
 # Database
 
