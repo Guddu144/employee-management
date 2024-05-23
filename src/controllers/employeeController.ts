@@ -35,13 +35,27 @@ class EmployeeController{
     }
   }
 
-  async getEmployeeById(id: number) {
-    return await this.prisma.employee.findUnique({
-      where: { userId:id },
-      include: {
-        user: true 
-      }
-    });
+  async getEmployeeById(id?: number) {
+    if(id){
+      return ( 
+        await this.prisma.employee.findUnique({
+        where: { userId:id },
+        include: {
+          user: true 
+        }
+      })
+    )
+    }
+  }
+
+  async getEmployees() {
+      return ( 
+        await this.prisma.employee.findMany({
+        include: {
+          user: true 
+        }
+      })
+    )
   }
 
   async updateEmployee(id:number,userRole:string,employeeData: { title: string; yearly_salary: number; address: string }, userData: { email: string; name: string; phone: string}) {
@@ -79,21 +93,6 @@ class EmployeeController{
 
 
   async deleteEmployee(id: number) {
-    try {
-      return await this.prisma.$transaction(async (prisma) => {
-        
-        await prisma.employee.delete({
-          where: { userId:id },
-        });
-
-        return await prisma.user.delete({
-          where: { id  }, 
-        });
-      });
-    } catch (error) {
-      console.error(`Error deleting employee with id ${id}:`, error);
-      throw new Error("Failed to delete employee");
-    }
   }
   
 }

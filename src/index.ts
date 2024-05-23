@@ -4,10 +4,12 @@ import ApiRouter from "./routes/index"
 import errorHandler from "./middleware/handle-error";
 import swaggerUi from 'swagger-ui-express';
 import swaggerOutput from "./swagger_output.json";
+import cors from "cors"
 import './routes/excel-upload/bulk-upload-worker'
 
 dotenv.config();
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT;
