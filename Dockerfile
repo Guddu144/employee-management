@@ -14,8 +14,6 @@ COPY . .
 
 RUN npm run build
 
-COPY ./src/swagger ./dist/swagger
-
 RUN npx prisma generate
 
 CMD [ "npm", "start" ]
