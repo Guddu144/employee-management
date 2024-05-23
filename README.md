@@ -1,12 +1,12 @@
-Employee Management	
+**Employee Management	**
 
 This is an Employee Management system. Follow the instructions below to set up and run the project
 
-Prerequisites
+**Prerequisites**
 1) Node.js
 2) Docker
 
-Setup
+**Setup**
 
 . Clone the Repository
 
@@ -30,10 +30,9 @@ Setup
 	docker compose up
 
 .	Access the Application
-
 	Open your browser and go to http://localhost:PORT (replace PORT with the actual port number).
 
-Database
+**Database**
 
 We're using schema.prisma for database migrations. The DATABASE_URL in your .env file should be:
 
@@ -41,9 +40,8 @@ We're using schema.prisma for database migrations. The DATABASE_URL in your .env
 
 Database migrations and seeding are automatically handled by the docker-compose.yaml file.
 
-Accessing the System
-
-	You can log in with the following credentials:
+**Accessing the System**
+You can log in with the following credentials:
 
 	Email: admin@gmail.com
 	Password: admin123
