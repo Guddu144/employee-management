@@ -6,7 +6,7 @@ const seedAdmin=async ()=>{
       let userData:any={
         email: "admin@gmail.com",
         name: "admin",
-        phone: "9842367465",
+        phone: 9842367465,
       }
       const hashedPassword = await hashPassword("admin123")
       userData.password = hashedPassword
