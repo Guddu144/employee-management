@@ -31,5 +31,5 @@ services:
       depends_on:
         database:
           condition: service_healthy
-      command: ["sh", "-c", "npx prisma db push && npm run runner src/seed/seedAdmin.ts"]
+      command: ["sh", "-c", "npx prisma db push"]
         
