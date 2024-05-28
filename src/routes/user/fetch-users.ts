@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import userController from '../../controllers/userController';
+import userService from '../../services/userService';
 
 export const fetchUsers=async (_req:Request, res:Response) => {
-    const user = await userController.getUsers();
+    const user = await userService.getUsers();
     res.status(200).json(user);
 }

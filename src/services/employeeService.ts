@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import prisma from "../prisma/prisma";
 import { UnexpectedError } from "../utils/errors";
 
-class EmployeeController{
+class EmployeeService{
 
 
   constructor(private prisma:PrismaClient) { }
@@ -122,6 +122,6 @@ class EmployeeController{
   
 }
 
-const employeeController = new EmployeeController(prisma);
+const employeeService = new EmployeeService(prisma);
 
-export default employeeController
+export default employeeService

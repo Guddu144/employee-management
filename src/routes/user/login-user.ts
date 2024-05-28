@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import userController from '../../controllers/userController';
+import userService from '../../services/userService';
 import { comparePassword } from '../../utils/bcrypt';
 import { generateToken, verifyToken } from '../../utils/jwt';
 import { ValidationFailedError } from '../../utils/errors';
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
-    const user = await userController.findUser(email);
+    const user = await userService.findUser(email);
     if (!user) {
       throw new ValidationFailedError('login failed', {
         'email': ['invalid credentials'],

@@ -1,6 +1,6 @@
 // worker.ts
 import { Worker } from 'bullmq';
-import employeeController from '../../controllers/employeeController';
+import employeeService from '../../services/employeeService';
 import { hashPassword } from '../../utils/bcrypt';
 import { redisClient } from '../../utils/redisConfig';
 
@@ -9,7 +9,7 @@ const worker = new Worker("excel-queue", async job => {
 
   if (file) {
     await Promise.all(file.map(async (employee: any) => {
-      return await employeeController.createEmployeeAndUser(
+      return await employeeService.createEmployeeAndUser(
         {
           title: employee.title,
           yearly_salary: employee.yearlySalary,

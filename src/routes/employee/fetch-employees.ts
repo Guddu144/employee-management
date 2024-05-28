@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import employeeController from '../../controllers/employeeController';
+import employeeService from '../../services/employeeService';
 
 export const fetchEmployees=async (_req:Request, res:Response) => {
-    const employee = await employeeController.getEmployees();
+    const employee = await employeeService.getEmployees();
     res.status(200).json(employee);
  
 }

@@ -1,4 +1,4 @@
-import userController from "../controllers/userController";
+import userService from "../services/userService";
 import { hashPassword } from "../utils/bcrypt";
 
 const seedAdmin=async ()=>{
@@ -10,7 +10,7 @@ const seedAdmin=async ()=>{
       }
       const hashedPassword = await hashPassword("admin123")
       userData.password = hashedPassword
-      const {user } = await userController.createAdmin(
+      const {user } = await userService.createAdmin(
         userData,
       );
       console.log(user,'Admin seeded successfully')

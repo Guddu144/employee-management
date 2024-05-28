@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import prisma from "../prisma/prisma";
 import { UnexpectedError } from "../utils/errors";
 
-class UserController{
+class UserService{
   constructor(private prisma:PrismaClient) { }
   
   async findUser(email: string) {
@@ -56,6 +56,6 @@ class UserController{
   
 }
 
-const userController = new UserController(prisma);
+const userService = new UserService(prisma);
 
-export default userController
+export default userService

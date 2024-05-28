@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import employeeController from '../../controllers/employeeController';
+import employeeService from '../../services/employeeService';
 import { AuthenticatedRequest } from '../../middleware/check-session';
 
 export const updateEmployee = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
@@ -7,7 +7,7 @@ export const updateEmployee = async (req: AuthenticatedRequest, res: Response): 
     const id = parseInt(req.params.id);
     if(req.user){
      const userRole=req.user.role  
-     const { updatedEmployee, updatedUser } = await employeeController.updateEmployee(
+     const { updatedEmployee, updatedUser } = await employeeService.updateEmployee(
       id,
       userRole,
       { title, yearly_salary, address },
