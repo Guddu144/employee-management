@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import prisma from "../prisma/prisma";
+import { UnexpectedError } from "../utils/errors";
 
 class EmployeeController{
 
@@ -31,24 +32,30 @@ class EmployeeController{
       });
     } catch (error) {
       console.error("Error creating employee and user:", error);
-      throw new Error("Failed to create employee and user");
+      throw new UnexpectedError("Failed to create employee and user");
     }
   }
 
   async getEmployeeById(id?: number) {
-    if(id){
-      return ( 
-        await this.prisma.employee.findUnique({
-        where: { userId:id },
-        include: {
-          user: true 
-        }
-      })
-    )
+    try{
+      if(id){
+        return ( 
+          await this.prisma.employee.findUnique({
+          where: { userId:id },
+          include: {
+            user: true 
+          }
+        })
+      )
+      }
+    }
+    catch{
+      throw new UnexpectedError("Failed to get employee")
     }
   }
 
   async getEmployees() {
+    try{
       return ( 
         await this.prisma.employee.findMany({
         include: {
@@ -56,6 +63,10 @@ class EmployeeController{
         }
       })
     )
+    }
+    catch{
+      throw new UnexpectedError("Failed to get employeess")
+    }
   }
 
   async updateEmployee(id:number,userRole:string,employeeData: { title: string; yearly_salary: number; address: string }, userData: { email: string; name: string; phone: string}) {
@@ -87,7 +98,7 @@ class EmployeeController{
       });
     } catch (error) {
       console.error("Error creating employee and user:", error);
-      throw new Error("Failed to create employee and user");
+      throw new UnexpectedError("Failed to create employee and user");
     }
   }
 
@@ -105,7 +116,7 @@ class EmployeeController{
         });
     } catch (error) {
       console.error(`Error deleting employee with id ${id}:`, error);
-      throw new Error("Failed to delete employee");
+      throw new UnexpectedError("Failed to delete employee");
     }
   }
   
