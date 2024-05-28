@@ -20,7 +20,7 @@ This is an Employee Management system. Follow the instructions below to set up a
 . Install Dependencies
 
 	npm install
-
+ 
 . Build the Docker Image
 
 	docker build -t employee-management-be-image .
@@ -28,6 +28,10 @@ This is an Employee Management system. Follow the instructions below to set up a
 .	Start the Project
 
 	docker compose up
+ 
+ . Seed Database
+
+	npm run runner src/seed/seedAdmin.ts
 
 .	Access the Application
 	Open your browser and go to http://localhost:PORT (replace PORT with the actual port number).
