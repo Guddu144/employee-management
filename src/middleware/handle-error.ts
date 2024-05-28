@@ -1,19 +1,12 @@
-import express, { ErrorRequestHandler } from 'express';
-import { CustomError, ExtractedErrorsType, UnexpectedError, ValidationFailedError } from '../utils/errors';
+import { ErrorRequestHandler } from 'express';
+import { CustomError, UnexpectedError, ValidationFailedError } from '../utils/errors';
 
-interface JsonResponse {
-  failed: boolean;
-  message: string;
-  errors?: ExtractedErrorsType;
-}
+const handleError: ErrorRequestHandler = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
 
-const handleError: ErrorRequestHandler = async (
-  err:Error,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
-) => {
-  const payload: JsonResponse = { failed: true, message: err.message };
+  const payload: any = { failed: true, message: err.message };
 
   if (!(err instanceof CustomError) || err instanceof UnexpectedError) {
     console.error(err);
@@ -33,5 +26,3 @@ const handleError: ErrorRequestHandler = async (
 };
 
 export default handleError;
-
-

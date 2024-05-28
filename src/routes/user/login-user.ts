@@ -4,7 +4,6 @@ import { comparePassword } from '../../utils/bcrypt';
 import { generateToken, verifyToken } from '../../utils/jwt';
 import { ValidationFailedError } from '../../utils/errors';
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  try {
     const { email, password } = req.body;
 
     const user = await userController.findUser(email);
@@ -34,9 +33,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       },
       message: 'User logged in successfully',
     });
-  } catch (error) {
-    next(error);
-  }
+ 
 };
 
 
