@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import prisma from "../prisma/prisma";
+import { UnexpectedError } from "../utils/errors";
 
 class UserController{
   constructor(private prisma:PrismaClient) { }
@@ -36,14 +37,19 @@ class UserController{
   }
 
   async getUsers() {
-    return ( 
-      await this.prisma.user.findMany({
-      include: {
-        Employee: true, 
-        Employeer: true
-      }
-    })
-  )
+    try{
+      return ( 
+        await this.prisma.user.findMany({
+        include: {
+          Employee: true, 
+          Employeer: true
+        }
+      })
+    )
+    }
+    catch{
+      throw new UnexpectedError('Failed to get users')
+    }
 }
 
   

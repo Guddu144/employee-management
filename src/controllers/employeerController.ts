@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import prisma from "../prisma/prisma";
+import { UnexpectedError } from "../utils/errors";
 
 class EmployeerController{
 
@@ -29,17 +30,22 @@ class EmployeerController{
       });
     } catch (error) {
       console.error("Error creating employee and user:", error);
-      throw new Error("Failed to create employee and user");
+      throw new UnexpectedError("Failed to create employee and user");
     }
   }
 
   async getEmployeerById(id: number) {
-    return await this.prisma.employeer.findUnique({
-      where: { userId:id },
-      include: {
-        user: true 
-      }
-    });
+    try{
+      return await this.prisma.employeer.findUnique({
+        where: { userId:id },
+        include: {
+          user: true 
+        }
+      });
+    }
+    catch{
+      throw new UnexpectedError("Failed to get employee");
+    }
   }
 
   async updateEmployeer(id:number,employeerData: { address: string }, userData: { email: string; name: string; phone: string}) {
@@ -63,7 +69,7 @@ class EmployeerController{
       });
     } catch (error) {
       console.error("Error creating employeer and user:", error);
-      throw new Error("Failed to update employeer and user");
+      throw new UnexpectedError("Failed to update employeer and user");
     }
   }
 
@@ -81,7 +87,7 @@ class EmployeerController{
         });
     } catch (error) {
       console.error(`Error deleting employeer with id ${id}:`, error);
-      throw new Error("Failed to delete employeer");
+      throw new UnexpectedError("Failed to delete employeer");
     }
   }
   
